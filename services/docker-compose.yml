@@ -1,0 +1,31 @@
+version: '3.4'
+
+networks:
+  mqtt_network:
+    driver: bridge
+
+services:
+    mqtt:
+        image: emqx/emqx:5.8.0
+        container_name: emqx
+        ports:
+          - "1883:1883"
+          - "8083:8083"
+          - "8084:8084"
+          - "8883:8883"
+          - "18083:18083"
+        networks:
+          - mqtt_network
+        restart: always
+        volumes:
+          - ./emqx_init/emqx.conf://opt/emqx/etc/emqx.conf
+    risingwave:
+      container_name: risingwave_mqtt
+      image: risingwavelabs/risingwave:v1.10.2
+      command: single_node
+      ports:
+        - "4566:4566"
+        - "5691:5691"
+      restart: always
+      networks:
+          - mqtt_network
