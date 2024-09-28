@@ -16,7 +16,7 @@ services:
           - "18083:18083"
         networks:
           - mqtt_network
-        restart: always
+        restart: unless-stopped
         volumes:
           - ./emqx_init/emqx.conf://opt/emqx/etc/emqx.conf
         environment:
@@ -29,6 +29,6 @@ services:
       ports:
         - "4566:4566"
         - "5691:5691"
-      restart: always
+      restart: unless-stopped
       networks:
           - mqtt_network
