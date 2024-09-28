@@ -6,7 +6,8 @@ networks:
 
 services:
     mqtt:
-        image: emqx/emqx:5.8.0
+        # image: emqx/emqx:5.8.0
+        image: emqx/emqx-enterprise
         container_name: emqx
         ports:
           - "1883:1883"
